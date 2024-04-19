@@ -57,6 +57,9 @@ function endGame() {
 
   gamescores.value.push(score);
   gamestate.value.newestScore = score.ticks;
+
+  //save to local storage
+  localStorage.setItem('gamescores', JSON.stringify(gamescores.value));
 }
 
 function clickHandler() {
@@ -78,6 +81,13 @@ function clickHandler() {
 function timeDisplay(time) {
   return `${(time / 1000).toFixed(3)}s`;
 }
+
+onMounted(() => {
+  const scores = localStorage.getItem('gamescores');
+  if (scores) {
+    gamescores.value = JSON.parse(scores);
+  }
+})
 
 </script>
 
